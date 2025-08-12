@@ -1,0 +1,1151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Soulful Safar - Adventure Awaits</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #2c5530;
+            --secondary-color: #8bc34a;
+            --accent-color: #ff6b35;
+            --text-dark: #2c3e50;
+            --text-light: #ecf0f1;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            overflow-x: hidden;
+        }
+
+        /* Navigation Styles */
+        .navbar {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            padding: 15px 0;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+        }
+
+        .navbar.scrolled {
+            padding: 10px 0;
+            background: rgba(44, 85, 48, 0.95);
+            backdrop-filter: blur(10px);
+        }
+
+        .navbar-brand {
+            font-size: 2rem;
+            font-weight: bold;
+            color: white !important;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .navbar-nav .nav-link {
+            color: white !important;
+            font-weight: 500;
+            margin: 0 10px;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .navbar-nav .nav-link:hover {
+            transform: translateY(-2px);
+            text-shadow: 0 2px 10px rgba(255,255,255,0.3);
+        }
+
+        .navbar-nav .nav-link.active {
+            background: var(--accent-color);
+            border-radius: 25px;
+            padding: 8px 20px !important;
+        }
+
+        /* Page Container */
+        .page-container {
+            min-height: calc(100vh - 200px);
+            display: none;
+        }
+
+        .page-container.active {
+            display: block;
+            animation: fadeIn 0.8s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), 
+                        url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800"><defs><linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:%23ff6b35"/><stop offset="50%" style="stop-color:%232c5530"/><stop offset="100%" style="stop-color:%238bc34a"/></linearGradient></defs><rect width="1200" height="800" fill="url(%23bg)"/><polygon points="0,800 300,600 600,700 900,500 1200,600 1200,800" fill="rgba(255,255,255,0.1)"/><polygon points="0,700 200,500 500,600 800,400 1200,500 1200,800" fill="rgba(255,255,255,0.05)"/></svg>');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            position: relative;
+        }
+
+        .hero-content h1 {
+            font-size: 4rem;
+            font-weight: bold;
+            margin-bottom: 20px;
+            text-shadow: 3px 3px 6px rgba(0,0,0,0.5);
+            animation: slideInUp 1s ease-out;
+        }
+
+        .hero-content p {
+            font-size: 1.5rem;
+            margin-bottom: 30px;
+            animation: slideInUp 1s ease-out 0.3s both;
+        }
+
+        .btn-adventure {
+            background: var(--accent-color);
+            border: none;
+            padding: 15px 40px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            border-radius: 50px;
+            transition: all 0.3s ease;
+            animation: slideInUp 1s ease-out 0.6s both;
+            box-shadow: 0 5px 20px rgba(255, 107, 53, 0.3);
+        }
+
+        .btn-adventure:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(255, 107, 53, 0.5);
+            background: #e85a2b;
+        }
+
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Section Styles */
+        .section-padding {
+            padding: 80px 0;
+        }
+
+        .section-title {
+            font-size: 3rem;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 50px;
+            color: var(--primary-color);
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            width: 100px;
+            height: 4px;
+            background: var(--accent-color);
+            display: block;
+            margin: 20px auto;
+        }
+
+        /* Card Styles */
+        .adventure-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            margin-bottom: 30px;
+            height: 100%;
+        }
+
+        .adventure-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.2);
+        }
+
+        .card-image {
+            height: 250px;
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card-image::before {
+            content: '🏔️';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 4rem;
+            opacity: 0.7;
+        }
+
+        .card-content {
+            padding: 30px;
+        }
+
+        .card-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 15px;
+            color: var(--primary-color);
+        }
+
+        /* Blog Styles */
+        .blog-post {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            margin-bottom: 40px;
+            transition: all 0.3s ease;
+        }
+
+        .blog-post:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+        }
+
+        .blog-header {
+            height: 200px;
+            background: linear-gradient(45deg, var(--accent-color), var(--primary-color));
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 3rem;
+        }
+
+        .blog-content {
+            padding: 30px;
+        }
+
+        .blog-meta {
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+        }
+
+        /* Form Styles */
+        .contact-form {
+            background: white;
+            padding: 50px;
+            border-radius: 20px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+        }
+
+        .form-control {
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .form-control:focus {
+            border-color: var(--secondary-color);
+            box-shadow: 0 0 0 0.2rem rgba(139, 195, 74, 0.25);
+        }
+
+        /* Footer */
+        .footer {
+            background: linear-gradient(135deg, var(--primary-color), var(--text-dark));
+            color: white;
+            padding: 50px 0 20px;
+            margin-top: 80px;
+        }
+
+        .social-icons a {
+            color: white;
+            font-size: 1.5rem;
+            margin: 0 15px;
+            transition: all 0.3s ease;
+        }
+
+        .social-icons a:hover {
+            color: var(--secondary-color);
+            transform: translateY(-3px);
+        }
+
+        /* Animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        /* Destination Styles */
+        .destination-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            padding: 20px 0;
+        }
+
+        .destination-card {
+            position: relative;
+            height: 350px;
+            border-radius: 20px;
+            overflow: hidden;
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .destination-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+        }
+
+        .destination-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(0,0,0,0.8));
+            color: white;
+            padding: 40px 30px 30px;
+            transform: translateY(50%);
+            transition: all 0.3s ease;
+        }
+
+        .destination-card:hover .destination-overlay {
+            transform: translateY(0);
+        }
+
+        .destination-icon {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 4rem;
+            opacity: 0.3;
+            transition: all 0.3s ease;
+        }
+
+        .destination-card:hover .destination-icon {
+            opacity: 0.1;
+            transform: translate(-50%, -50%) scale(1.2);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero-content p {
+                font-size: 1.2rem;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .contact-form {
+                padding: 30px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="#" data-page="home">
+                <i class="fas fa-mountain"></i> Soulful Safar
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#" data-page="home">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" data-page="blog">Blog</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" data-page="post">Post</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" data-page="destinations">Destinations</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" data-page="about">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" data-page="contact">Contact</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Home Page -->
+    <div class="page-container active" id="home-page">
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="hero-content">
+                <h1 class="fade-in">Adventure Awaits</h1>
+                <p class="fade-in">Discover breathtaking destinations and create unforgettable memories</p>
+                <button class="btn btn-adventure fade-in" onclick="navigateTo('destinations')">
+                    Start Your Journey <i class="fas fa-arrow-right"></i>
+                </button>
+            </div>
+        </section>
+
+        <!-- Featured Adventures -->
+        <section class="section-padding bg-light">
+            <div class="container">
+                <h2 class="section-title" data-aos="fade-up">Featured Adventures</h2>
+                <div class="row">
+                    <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
+                        <div class="adventure-card">
+                            <div class="card-image"></div>
+                            <div class="card-content">
+                                <h3 class="card-title">Mountain Hiking</h3>
+                                <p>Experience the thrill of conquering majestic peaks and witness breathtaking views that will leave you speechless.</p>
+                                <a href="#" class="btn btn-outline-success">Read More</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="200">
+                        <div class="adventure-card">
+                            <div class="card-image" style="background: linear-gradient(45deg, #3498db, #2ecc71);"></div>
+                            <div class="card-content">
+                                <h3 class="card-title">Ocean Diving</h3>
+                                <p>Dive deep into crystal clear waters and discover the mesmerizing underwater world full of vibrant marine life.</p>
+                                <a href="#" class="btn btn-outline-success">Read More</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="300">
+                        <div class="adventure-card">
+                            <div class="card-image" style="background: linear-gradient(45deg, #f39c12, #e67e22);"></div>
+                            <div class="card-content">
+                                <h3 class="card-title">Desert Safari</h3>
+                                <p>Journey through golden sand dunes and experience the raw beauty and serenity of vast desert landscapes.</p>
+                                <a href="#" class="btn btn-outline-success">Read More</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Blog Page -->
+    <div class="page-container" id="blog-page">
+        <section class="section-padding" style="padding-top: 120px;">
+            <div class="container">
+                <h2 class="section-title" data-aos="fade-up">Adventure Blog</h2>
+                <div class="row">
+                    <div class="col-lg-8">
+                        <article class="blog-post" data-aos="fade-up">
+                            <div class="blog-header">🎒</div>
+                            <div class="blog-content">
+                                <div class="blog-meta">
+                                    <i class="fas fa-calendar"></i> March 15, 2024 | 
+                                    <i class="fas fa-user"></i> Alex Johnson
+                                </div>
+                                <h3>Essential Gear for Mountain Climbing</h3>
+                                <p>Preparing for a mountain climbing adventure requires careful planning and the right equipment. From proper footwear to safety gear, every item in your backpack plays a crucial role in ensuring a successful and safe climb.</p>
+                                <a href="#" class="btn btn-success" onclick="navigateTo('post')">Read Full Post</a>
+                            </div>
+                        </article>
+
+                        <article class="blog-post" data-aos="fade-up" data-aos-delay="100">
+                            <div class="blog-header" style="background: linear-gradient(45deg, #3498db, #2980b9);">🌊</div>
+                            <div class="blog-content">
+                                <div class="blog-meta">
+                                    <i class="fas fa-calendar"></i> March 10, 2024 | 
+                                    <i class="fas fa-user"></i> Sarah Chen
+                                </div>
+                                <h3>Best Underwater Photography Tips</h3>
+                                <p>Capture the beauty of marine life with these professional underwater photography techniques. Learn how to work with natural light, handle camera equipment in water, and compose stunning shots.</p>
+                                <a href="#" class="btn btn-success">Read Full Post</a>
+                            </div>
+                        </article>
+
+                        <article class="blog-post" data-aos="fade-up" data-aos-delay="200">
+                            <div class="blog-header" style="background: linear-gradient(45deg, #f39c12, #d68910);">🏜️</div>
+                            <div class="blog-content">
+                                <div class="blog-meta">
+                                    <i class="fas fa-calendar"></i> March 5, 2024 | 
+                                    <i class="fas fa-user"></i> Mike Rodriguez
+                                </div>
+                                <h3>Surviving Desert Expeditions</h3>
+                                <p>Desert adventures offer unique challenges and rewards. Discover essential survival skills, navigation techniques, and how to stay hydrated in extreme conditions.</p>
+                                <a href="#" class="btn btn-success">Read Full Post</a>
+                            </div>
+                        </article>
+                    </div>
+
+                    <div class="col-lg-4">
+                        <div class="bg-white p-4 rounded-3 shadow mb-4" data-aos="fade-left">
+                            <h4>Popular Posts</h4>
+                            <ul class="list-unstyled">
+                                <li class="mb-3">
+                                    <a href="#" class="text-decoration-none">
+                                        <strong>Top 10 Hiking Destinations</strong><br>
+                                        <small class="text-muted">2.3k views</small>
+                                    </a>
+                                </li>
+                                <li class="mb-3">
+                                    <a href="#" class="text-decoration-none">
+                                        <strong>Safety Tips for Solo Travelers</strong><br>
+                                        <small class="text-muted">1.8k views</small>
+                                    </a>
+                                </li>
+                                <li class="mb-3">
+                                    <a href="#" class="text-decoration-none">
+                                        <strong>Best Adventure Photography Gear</strong><br>
+                                        <small class="text-muted">1.5k views</small>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="bg-white p-4 rounded-3 shadow" data-aos="fade-left" data-aos-delay="100">
+                            <h4>Categories</h4>
+                            <div class="d-flex flex-wrap gap-2">
+                                <span class="badge bg-success">Hiking</span>
+                                <span class="badge bg-primary">Diving</span>
+                                <span class="badge bg-warning">Desert</span>
+                                <span class="badge bg-info">Photography</span>
+                                <span class="badge bg-danger">Safety</span>
+                                <span class="badge bg-secondary">Gear</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Post Page -->
+    <div class="page-container" id="post-page">
+        <section class="section-padding" style="padding-top: 120px;">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-lg-8">
+                        <article class="bg-white rounded-3 shadow-lg p-5" data-aos="fade-up">
+                            <div class="text-center mb-4">
+                                <div class="display-1">🎒</div>
+                                <h1 class="display-4 mb-3">Essential Gear for Mountain Climbing</h1>
+                                <div class="blog-meta fs-5">
+                                    <i class="fas fa-calendar text-success"></i> March 15, 2024 | 
+                                    <i class="fas fa-user text-success"></i> Alex Johnson |
+                                    <i class="fas fa-clock text-success"></i> 8 min read
+                                </div>
+                            </div>
+
+                            <img src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 800 400'><defs><linearGradient id='mountain' x1='0%' y1='100%' x2='100%' y2='0%'><stop offset='0%' style='stop-color:%232c5530'/><stop offset='100%' style='stop-color:%238bc34a'/></linearGradient></defs><rect width='800' height='400' fill='%23e8f5e8'/><polygon points='0,400 200,100 400,200 600,80 800,150 800,400' fill='url(%23mountain)'/><polygon points='100,400 300,150 500,250 700,120 800,180 800,400' fill='rgba(44,85,48,0.7)'/><circle cx='100' cy='80' r='40' fill='%23ffd700' opacity='0.8'/></svg>" 
+                                 alt="Mountain Climbing" class="img-fluid rounded-3 mb-4 shadow">
+
+                            <div class="post-content">
+                                <p class="lead">Mountain climbing is one of the most exhilarating adventures you can embark upon, but it requires proper preparation and the right equipment. Whether you're planning your first climb or looking to upgrade your gear, this comprehensive guide will help you understand what's essential for a safe and successful mountain climbing experience.</p>
+
+                                <h3 class="mt-5 mb-3 text-success">🥾 Essential Footwear</h3>
+                                <p>Your boots are your foundation on the mountain. Invest in high-quality mountaineering boots that provide excellent ankle support, waterproofing, and compatibility with crampons. Look for boots with a stiff sole that can handle technical terrain while still being comfortable for long approaches.</p>
+
+                                <h3 class="mt-5 mb-3 text-success">🧗‍♀️ Climbing Equipment</h3>
+                                <p>Technical climbing gear includes ropes, harnesses, helmets, and protection devices. A dynamic climbing rope is essential for safety, while a comfortable harness distributes weight properly during belays and falls. Never compromise on helmet quality – it's your primary protection against rockfall and impact injuries.</p>
+
+                                <h3 class="mt-5 mb-3 text-success">🌡️ Weather Protection</h3>
+                                <p>Mountain weather can change rapidly. Layer your clothing with moisture-wicking base layers, insulating mid-layers, and waterproof outer shells. Don't forget accessories like gloves, hat, and gaiters to protect extremities from cold and moisture.</p>
+
+                                <div class="bg-light p-4 rounded-3 my-5">
+                                    <h4 class="text-center mb-3">📋 Quick Checklist</h4>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <ul class="list-unstyled">
+                                                <li>✅ Mountaineering boots</li>
+                                                <li>✅ Climbing helmet</li>
+                                                <li>✅ Dynamic rope</li>
+                                                <li>✅ Harness</li>
+                                                <li>✅ Belay device</li>
+                                            </ul>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <ul class="list-unstyled">
+                                                <li>✅ Weather layers</li>
+                                                <li>✅ Navigation tools</li>
+                                                <li>✅ First aid kit</li>
+                                                <li>✅ Emergency shelter</li>
+                                                <li>✅ Headlamp</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <h3 class="mt-5 mb-3 text-success">🗺️ Navigation and Safety</h3>
+                                <p>Always carry multiple navigation tools including a GPS device, compass, and detailed topographic maps. Emergency equipment should include a first aid kit, emergency shelter, and communication devices like a satellite communicator for remote areas.</p>
+
+                                <p class="mt-4">Remember, the mountains demand respect. Proper gear is just one part of safe climbing – always check weather conditions, inform others of your plans, and know your limits. Start with easier climbs to build experience and gradually progress to more challenging objectives.</p>
+
+                                <div class="text-center mt-5">
+                                    <button class="btn btn-adventure" onclick="navigateTo('blog')">
+                                        <i class="fas fa-arrow-left"></i> Back to Blog
+                                    </button>
+                                </div>
+                            </div>
+                        </article>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Destinations Page -->
+    <div class="page-container" id="destinations-page">
+        <section class="section-padding" style="padding-top: 120px;">
+            <div class="container">
+                <h2 class="section-title" data-aos="fade-up">Epic Destinations</h2>
+                <p class="text-center lead mb-5" data-aos="fade-up" data-aos-delay="100">Discover the world's most incredible adventure destinations</p>
+                
+                <div class="destination-grid">
+                    <div class="destination-card" data-aos="fade-up" data-aos-delay="100">
+                        <div class="destination-icon">🏔️</div>
+                        <div class="destination-overlay">
+                            <h3>Himalayas</h3>
+                            <p>Conquer the world's highest peaks and experience the majesty of the Himalayan range.</p>
+                            <span class="badge bg-success">Extreme</span>
+                        </div>
+                    </div>
+
+                    <div class="destination-card" data-aos="fade-up" data-aos-delay="200">
+                        <div class="destination-icon">🏝️</div>
+                        <div class="destination-overlay">
+                            <h3>Maldives</h3>
+                            <p>Dive into crystal-clear waters and explore vibrant coral reefs in paradise.</p>
+                            <span class="badge bg-info">Water Sports</span>
+                        </div>
+                    </div>
+
+                    <div class="destination-card" data-aos="fade-up" data-aos-delay="300">
+                        <div class="destination-icon">🏜️</div>
+                        <div class="destination-overlay">
+                            <h3>Sahara Desert</h3>
+                            <p>Journey through golden sand dunes and experience the vast beauty of the desert.</p>
+                            <span class="badge bg-warning">Desert</span>
+                        </div>
+                    </div>
+
+                    <div class="destination-card" data-aos="fade-up" data-aos-delay="400">
+                        <div class="destination-icon">🌿</div>
+                        <div class="destination-overlay">
+                            <h3>Amazon Rainforest</h3>
+                            <p>Explore the world's largest tropical rainforest and its incredible biodiversity.</p>
+                            <span class="badge bg-success">Jungle</span>
+                        </div>
+                    </div>
+
+                    <div class="destination-card" data-aos="fade-up" data-aos-delay="500">
+                        <div class="destination-icon">❄️</div>
+                        <div class="destination-overlay">
+                            <h3>Antarctica</h3>
+                            <p>Experience the ultimate wilderness in the world's most remote continent.</p>
+                            <span class="badge bg-light text-dark">Polar</span>
+                        </div>
+                    </div>
+
+                    <div class="destination-card" data-aos="fade-up" data-aos-delay="600">
+                        <div class="destination-icon">🌋</div>
+                        <div class="destination-overlay">
+                            <h3>Volcanic Islands</h3>
+                            <p>Witness the raw power of nature on active volcanic islands around the world.</p>
+                            <span class="badge bg-danger">Volcanic</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Destination Stats -->
+                <div class="row mt-5">
+                    <div class="col-md-3 text-center" data-aos="fade-up" data-aos-delay="100">
+                        <div class="bg-white p-4 rounded-3 shadow">
+                            <div class="display-4 text-success mb-2">127</div>
+                            <h5>Destinations</h5>
+                        </div>
+                    </div>
+                    <div class="col-md-3 text-center" data-aos="fade-up" data-aos-delay="200">
+                        <div class="bg-white p-4 rounded-3 shadow">
+                            <div class="display-4 text-primary mb-2">45K</div>
+                            <h5>Adventurers</h5>
+                        </div>
+                    </div>
+                    <div class="col-md-3 text-center" data-aos="fade-up" data-aos-delay="300">
+                        <div class="bg-white p-4 rounded-3 shadow">
+                            <div class="display-4 text-warning mb-2">98%</div>
+                            <h5>Satisfaction</h5>
+                        </div>
+                    </div>
+                    <div class="col-md-3 text-center" data-aos="fade-up" data-aos-delay="400">
+                        <div class="bg-white p-4 rounded-3 shadow">
+                            <div class="display-4 text-danger mb-2">24/7</div>
+                            <h5>Support</h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- About Page -->
+    <div class="page-container" id="about-page">
+        <section class="section-padding" style="padding-top: 120px;">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-lg-6" data-aos="fade-right">
+                        <h2 class="section-title text-start">About Soulful Safar</h2>
+                        <p class="lead">We are passionate adventurers dedicated to helping you discover the world's most incredible destinations and create unforgettable memories.</p>
+                        
+                        <p>Founded in 2020 by a group of experienced mountaineers, divers, and explorers, Soulful Safar was born from a shared love of adventure and a desire to inspire others to step outside their comfort zones.</p>
+                        
+                        <p>Our team has collectively explored over 100 countries, summited numerous peaks, dove in pristine waters, and trekked through diverse landscapes. We bring this wealth of experience to every piece of content we create.</p>
+                        
+                        <div class="row mt-4">
+                            <div class="col-6">
+                                <div class="text-center">
+                                    <div class="display-5 text-success fw-bold">5+</div>
+                                    <p>Years Experience</p>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="text-center">
+                                    <div class="display-5 text-success fw-bold">100K+</div>
+                                    <p>Community Members</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-lg-6" data-aos="fade-left">
+                        <div class="position-relative">
+                            <div style="height: 400px; background: linear-gradient(135deg, var(--primary-color), var(--secondary-color)); border-radius: 20px; display: flex; align-items: center; justify-content: center; font-size: 8rem; color: rgba(255,255,255,0.3);">
+                                🏔️
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Team Section -->
+                <div class="row mt-5">
+                    <div class="col-12">
+                        <h3 class="text-center mb-5" data-aos="fade-up">Meet Our Team</h3>
+                    </div>
+                    <div class="col-lg-4 col-md-6 text-center" data-aos="fade-up" data-aos-delay="100">
+                        <div class="bg-white p-4 rounded-3 shadow mb-4">
+                            <div style="width: 120px; height: 120px; background: linear-gradient(45deg, var(--primary-color), var(--secondary-color)); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; font-size: 3rem; color: white;">
+                                🧗‍♂️
+                            </div>
+                            <h4>Alex Johnson</h4>
+                            <p class="text-muted">Founder & Mountain Guide</p>
+                            <p>Experienced mountaineer with 15+ years of climbing expertise across six continents.</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6 text-center" data-aos="fade-up" data-aos-delay="200">
+                        <div class="bg-white p-4 rounded-3 shadow mb-4">
+                            <div style="width: 120px; height: 120px; background: linear-gradient(45deg, #3498db, #2980b9); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; font-size: 3rem; color: white;">
+                                🤿
+                            </div>
+                            <h4>Sarah Chen</h4>
+                            <p class="text-muted">Marine Biologist & Dive Master</p>
+                            <p>Professional dive instructor and underwater photographer specializing in marine conservation.</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6 text-center" data-aos="fade-up" data-aos-delay="300">
+                        <div class="bg-white p-4 rounded-3 shadow mb-4">
+                            <div style="width: 120px; height: 120px; background: linear-gradient(45deg, #f39c12, #e67e22); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; font-size: 3rem; color: white;">
+                                🏜️
+                            </div>
+                            <h4>Mike Rodriguez</h4>
+                            <p class="text-muted">Desert Explorer & Survival Expert</p>
+                            <p>Adventure photographer and survival specialist with extensive desert expedition experience.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Mission Section -->
+                <div class="row mt-5">
+                    <div class="col-12 text-center" data-aos="fade-up">
+                        <div class="bg-light p-5 rounded-3">
+                            <h3 class="mb-4">Our Mission</h3>
+                            <p class="lead">To inspire and empower adventurers of all levels to explore the world safely, responsibly, and with respect for nature and local communities.</p>
+                            <p>We believe that adventure is not just about conquering peaks or exploring remote places – it's about personal growth, building connections, and developing a deeper appreciation for our planet's incredible diversity.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Contact Page -->
+    <div class="page-container" id="contact-page">
+        <section class="section-padding" style="padding-top: 120px;">
+            <div class="container">
+                <h2 class="section-title" data-aos="fade-up">Get In Touch</h2>
+                <p class="text-center lead mb-5" data-aos="fade-up" data-aos-delay="100">Ready to plan your next adventure? We'd love to hear from you!</p>
+                
+                <div class="row">
+                    <div class="col-lg-8 mx-auto">
+                        <div class="contact-form" data-aos="fade-up" data-aos-delay="200">
+                            <form id="contactForm">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <input type="text" class="form-control" placeholder="Your Name" required>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <input type="email" class="form-control" placeholder="Your Email" required>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <input type="tel" class="form-control" placeholder="Phone Number">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <select class="form-control">
+                                            <option>Adventure Type</option>
+                                            <option>Mountain Climbing</option>
+                                            <option>Ocean Diving</option>
+                                            <option>Desert Safari</option>
+                                            <option>Jungle Trekking</option>
+                                            <option>Polar Expedition</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <textarea class="form-control" rows="5" placeholder="Tell us about your dream adventure..."></textarea>
+                                <div class="text-center">
+                                    <button type="submit" class="btn btn-adventure">
+                                        Send Message <i class="fas fa-paper-plane"></i>
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Contact Info -->
+                <div class="row mt-5">
+                    <div class="col-md-4 text-center" data-aos="fade-up" data-aos-delay="100">
+                        <div class="bg-white p-4 rounded-3 shadow">
+                            <div class="text-success display-6 mb-3">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </div>
+                            <h4>Visit Us</h4>
+                            <p>123 Adventure Street<br>Mountain View, CA 94041</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4 text-center" data-aos="fade-up" data-aos-delay="200">
+                        <div class="bg-white p-4 rounded-3 shadow">
+                            <div class="text-success display-6 mb-3">
+                                <i class="fas fa-phone"></i>
+                            </div>
+                            <h4>Call Us</h4>
+                            <p>+1 (555) 123-4567<br>Mon - Fri, 9AM - 6PM PST</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4 text-center" data-aos="fade-up" data-aos-delay="300">
+                        <div class="bg-white p-4 rounded-3 shadow">
+                            <div class="text-success display-6 mb-3">
+                                <i class="fas fa-envelope"></i>
+                            </div>
+                            <h4>Email Us</h4>
+                            <p>info@Soulful Safar.com<br>support@Soulful Safar.com</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <h3><i class="fas fa-mountain"></i> Soulful Safar</h3>
+                    <p>Your ultimate guide to adventure travel. Explore the world's most incredible destinations with expert guidance and unforgettable experiences.</p>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-6 mb-4">
+                    <h5>Quick Links</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="#" class="text-light text-decoration-none" onclick="navigateTo('home')">Home</a></li>
+                        <li><a href="#" class="text-light text-decoration-none" onclick="navigateTo('blog')">Blog</a></li>
+                        <li><a href="#" class="text-light text-decoration-none" onclick="navigateTo('destinations')">Destinations</a></li>
+                        <li><a href="#" class="text-light text-decoration-none" onclick="navigateTo('about')">About</a></li>
+                        <li><a href="#" class="text-light text-decoration-none" onclick="navigateTo('contact')">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <h5>Adventures</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="#" class="text-light text-decoration-none">Mountain Climbing</a></li>
+                        <li><a href="#" class="text-light text-decoration-none">Ocean Diving</a></li>
+                        <li><a href="#" class="text-light text-decoration-none">Desert Safari</a></li>
+                        <li><a href="#" class="text-light text-decoration-none">Jungle Trekking</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <h5>Newsletter</h5>
+                    <p>Subscribe to get the latest adventure tips and destination updates.</p>
+                    <div class="input-group">
+                        <input type="email" class="form-control" placeholder="Your email">
+                        <button class="btn btn-success" type="button">Subscribe</button>
+                    </div>
+                </div>
+            </div>
+            <hr class="my-4">
+            <div class="row align-items-center">
+                <div class="col-md-6">
+                    <p class="mb-0">&copy; 2024 Soulful Safar. All rights reserved.</p>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <a href="#" class="text-light text-decoration-none me-3">Privacy Policy</a>
+                    <a href="#" class="text-light text-decoration-none">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+    <script>
+        // Initialize AOS (Animate On Scroll)
+        AOS.init({
+            duration: 1000,
+            once: true,
+            offset: 100
+        });
+
+        // Navigation functionality
+        let currentPage = 'home';
+
+        function navigateTo(page) {
+            // Hide all pages
+            document.querySelectorAll('.page-container').forEach(container => {
+                container.classList.remove('active');
+            });
+
+            // Show selected page
+            document.getElementById(page + '-page').classList.add('active');
+
+            // Update navigation
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.classList.remove('active');
+            });
+            document.querySelector(`[data-page="${page}"]`).classList.add('active');
+
+            currentPage = page;
+
+            // Scroll to top
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+
+            // Reinitialize AOS for new page
+            setTimeout(() => {
+                AOS.refresh();
+            }, 100);
+        }
+
+        // Add click events to navigation links
+        document.querySelectorAll('[data-page]').forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const page = e.target.getAttribute('data-page');
+                navigateTo(page);
+            });
+        });
+
+        // Navbar scroll effect
+        window.addEventListener('scroll', () => {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 100) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Fade in animations
+        function animateOnScroll() {
+            const elements = document.querySelectorAll('.fade-in');
+            elements.forEach(element => {
+                const elementTop = element.getBoundingClientRect().top;
+                const elementVisible = 150;
+
+                if (elementTop < window.innerHeight - elementVisible) {
+                    element.classList.add('visible');
+                }
+            });
+        }
+
+        window.addEventListener('scroll', animateOnScroll);
+
+        // Contact form submission
+        document.getElementById('contactForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            // Add pulse animation to submit button
+            const submitBtn = e.target.querySelector('button[type="submit"]');
+            submitBtn.classList.add('pulse');
+            
+            // Simulate form submission
+            setTimeout(() => {
+                alert('Thank you for your message! We\'ll get back to you soon.');
+                e.target.reset();
+                submitBtn.classList.remove('pulse');
+            }, 1000);
+        });
+
+        // Add hover effects to cards
+        document.addEventListener('DOMContentLoaded', () => {
+            const cards = document.querySelectorAll('.adventure-card, .blog-post, .destination-card');
+            
+            cards.forEach(card => {
+                card.addEventListener('mouseenter', () => {
+                    card.style.transform = 'translateY(-10px) scale(1.02)';
+                });
+                
+                card.addEventListener('mouseleave', () => {
+                    card.style.transform = 'translateY(0) scale(1)';
+                });
+            });
+
+            // Initialize page animations
+            setTimeout(() => {
+                document.querySelectorAll('.fade-in').forEach(element => {
+                    element.classList.add('visible');
+                });
+            }, 300);
+        });
+
+        // Add typing animation effect
+        function typeWriter(element, text, speed = 100) {
+            let i = 0;
+            element.innerHTML = '';
+            
+            function type() {
+                if (i < text.length) {
+                    element.innerHTML += text.charAt(i);
+                    i++;
+                    setTimeout(type, speed);
+                }
+            }
+            type();
+        }
+
+        // Smooth scrolling for internal links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Add parallax effect to hero section
+        window.addEventListener('scroll', () => {
+            if (currentPage === 'home') {
+                const hero = document.querySelector('.hero');
+                const scrolled = window.pageYOffset;
+                const rate = scrolled * -0.5;
+                
+                hero.style.transform = `translateY(${rate}px)`;
+            }
+        });
+
+        // Initialize everything when DOM is loaded
+        document.addEventListener('DOMContentLoaded', () => {
+            // Add loading animation
+            document.body.style.opacity = '0';
+            setTimeout(() => {
+                document.body.style.transition = 'opacity 0.5s ease-in';
+                document.body.style.opacity = '1';
+            }, 100);
+
+            // Initialize counters animation for stats
+            const animateCounters = () => {
+                const counters = document.querySelectorAll('.display-4, .display-5');
+                counters.forEach(counter => {
+                    const target = parseInt(counter.innerText.replace(/\D/g, ''));
+                    if (target) {
+                        let count = 0;
+                        const increment = target / 50;
+                        const timer = setInterval(() => {
+                            count += increment;
+                            if (count >= target) {
+                                counter.innerText = counter.innerText.replace(/\d+/, target);
+                                clearInterval(timer);
+                            } else {
+                                counter.innerText = counter.innerText.replace(/\d+/, Math.floor(count));
+                            }
+                        }, 50);
+                    }
+                });
+            };
+
+            // Trigger counter animation when destinations page is visible
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting && entry.target.id === 'destinations-page') {
+                        animateCounters();
+                    }
+                });
+            });
+
+            document.querySelectorAll('.page-container').forEach(page => {
+                observer.observe(page);
+            });
+        });
+    </script>
+</body>
+</html>
